@@ -7,14 +7,25 @@ categories: posts
 
 Games like Red Dead Redemption 2 and Horizon Forbidden West are wonderful games, where you can just fall in love with the scenery of the worlds. Even better is the interaction that the player or AI of the game can perform. One of those interactions I took a closer look at, is the deformation of terrain. Snow to be exact. Taking a look at what RDR2 outputs, I was able to recreate Rockstar’s snow deformation to some extent and I will show how I achieved such.
 
-[showcase]
+<video width="750" height="480" controls>
+  <source src="../../../../assets/deformation-demo.mp4" type="video/mp4">
+</video>
+
+
+[![]()](../../../../assets/deformation-demo.mp4)
 
 ## Deforming the terrain using depth
 > 📝 **Note:** A depth pass is a graphics pass that is used to get the depth. A depth pass is like a regular pass, but the pixel shader does not assign colors to a render target.
 
 To get the deformed data of the terrain, the most optimal way of getting the height data is using depth from the point of view of the terrain. I use a orthographic render from underneath the terrain. That way, I can get a value from 0 to 1, so I can calculate the offset for the terrain. To do this accurately, an orthographic projection is needed to get the accurate depth from the terrain to the mesh. How that would look like can be seen in the following image:
 
-tldraw of frustum
+<figure>
+    <img src="../../../../assets/view-frustum-terrain.png"
+         alt="Frustum drawn out to show how we capture the depth"
+         height=400
+         width=450>
+    <figcaption><i>Illustration of the frustum used to get the depth for the terrain deformation.</i></figcaption>
+</figure>
 
 The only issue when using this approach is, that this would only work if the terrain mesh if completely flat. I do not take the height into account of the geometry, which means, that the offset would not be accurate. 
 
@@ -91,7 +102,7 @@ Since the data required to fetch is closer to the core of the GPU, rather than b
 
 
 <figure>
-    <img src="../../../../assets/sharing_ram_with_graphics_card.webp"
+    <img src="../../../../assets/sharing-ram-with-graphics-card.webp"
          alt="GPU Architecture explaining where the shared memory is located"
          height=240
          width=425>
@@ -131,23 +142,65 @@ float deformation = localDataShare[ldsId.x][ldsId.y];
 One last thing to note about synchronization. If the threads that need to wait for data from a texture, the others might already try to read the shared memory, while it is not populated. That is why I made use of the `GroupMemoryBarrierWithGroupSync()` function, to ensure that all the shared memory is populated with the corresponding data.
 I profiled the differences between the use of shared memory and just regular texture reads using Nvidia Nsight, and it shows that I was able to shave off 50% of my time spent in this compute shader. And to verify that it was using the shared memory, Nsight showed that the throughput of shared memory was used and replaced a lot of the VRAM and L2 cache throughput.
 
-nsight lds screenshot
+<figure>
+    <img src="../../../../assets/normal-timing-no-lds2.png"
+         alt="Timings without LDS"
+         height=350
+         width=650>
+    <figcaption><i>The render times of 9 terrain meshes without the use of shared memory using Nsight.</i></figcaption>
+</figure>
+
+<figure>
+    <img src="../../../../assets/normal-timing-lds2.png"
+         alt="Timings with LDS"
+         height=450
+         width=650>
+    <figcaption><i>The render times of 9 terrain meshes with the use of shared memory using Nsight.</i></figcaption>
+</figure>
 
 ## Extra details
 “Tessellation is the vertex processing stage, where patches of vertex data are subdivided into smaller primitives.” – The Khronos Group
 The most important part of the terrain. The part that will be visible. Because of the offset I take into account, I am able to create meshes in Blender and I am able to have cool looking and more important, realistic looking terrain. 
 The mesh of the terrain will be of a lower resolution, because we will add more vertices to the mesh using the tessellation shaders we have at our disposal. The tessellation shaders are very good at adding more vertices, but they cannot reduce the amount of vertices. They can only discard them. Luckily, I was still able to make a simple distance-based LOD system, that keeps the default mesh if the terrain part is far away, while the parts that are close are being tessellated to add more detail to the mesh. The function that I used is similar to the light attenuation function, which reduces the LOD over distance. 
 
-video lod
+<figure>
+    <video width="750" height="480" controls>
+      <source src="../../../../assets/lod-demo.mp4" type="video/mp4">
+    </video>
+    <figcaption><i>Showcase of how the LOD applies to the mesh using a wireframe.</i></figcaption>
+</figure>
+
+
+[![]()](../../../../assets/lod-demo.mp4)
 
 Since the tessellation shaders allowed me to discard vertices, one very known technique can be used to speed up the rendering of the terrain. The technique in question is called 'view frustum culling'. I apply this form of culling in the hull shader, where we instruct the tessellator how the mesh will be tessellated. If the entire triangle is outside of the view frustum, it discards the triangle. Else, the LOD algorithm as described above is applied and we render the triangle.
 
-screenshot culling renderdoc
+<figure>
+    <img src="../../../../assets/view-frustum-culling.png"
+         alt="Mesh after culling"
+         height=240
+         width=425>
+    <figcaption><i>The terrain mesh after culling shown in RenderDoc.</i></figcaption>
+</figure>
 
 Even though, I added some branches in my shader code, I was still able to gain some performance using these two optimization techniques, as seen by the profiler. Even the distance-based LOD system did its magic, by decreasing the amount of unnecessary triangles that would not make a difference for the terrains appearance.
 After utilizing all the mentioned techniques, I obtained a terrain that looks something like this, which which is fully functional.
 
-nsight lod&culling
+<figure>
+    <img src="../../../../assets/profiling-without-culling.png"
+         alt="Timings before LOD and culling"
+         height=230
+         width=850>
+    <figcaption><i>The render times of 9 terrain meshes without LOD and culling using Nsight.</i></figcaption>
+</figure>
+
+<figure>
+    <img src="../../../../assets/profiling-with-culling.png"
+         alt="Timings after LOD and culling"
+         height=220
+         width=850>
+    <figcaption><i>The render times of 9 terrain meshes with LOD and culling using Nsight.</i></figcaption>
+</figure>
 
 If I take this terrain and put it in a game, would this hit the mark for current standards? I would say that this feature is definitely usable, but you can enhance and optimize the terrain even more. 
 
