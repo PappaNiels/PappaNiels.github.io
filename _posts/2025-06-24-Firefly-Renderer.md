@@ -30,7 +30,7 @@ Below are some screenshots and the feature list on how we achieved such.
     <img src="../../../../assets/firefly/deferred-point-lights.png"
          alt="Frustum drawn out to show how we capture the depth"
          height=400
-         width=450>
+         width=750>
     <figcaption><i>Deferred lighting on sponza.</i></figcaption>
 </figure>
 
@@ -38,18 +38,14 @@ Below are some screenshots and the feature list on how we achieved such.
     <img src="../../../../assets/firefly/sponza-final.png"
          alt="Frustum drawn out to show how we capture the depth"
          height=400
-         width=450>
+         width=750>
     <figcaption><i>Deferred lighting on sponza with IBL and shadows.</i></figcaption>
 </figure>
 
-<video width="750" height="480" controls>
-  <source src="../../../../assets/firefly/skeletal-animation.mp4" type="video/mp4">
-</video>
-
-[![]()](../../../../assets/firefly/ui-demo.mp4)
-
-<video width="750" height="480" controls>
-  <source src="../../../../assets/firefly/ui-demo.mp4" type="video/mp4">
-</video>
-
-[![]()](../../../../assets/firefly/ui-demo.mp4)
+<figure>
+    <img src="../../../../assets/firefly/ssao.png"
+         alt="Frustum drawn out to show how we capture the depth"
+         height=400
+         width=750>
+    <figcaption><i>SSAO on sponza (black means occluded).</i></figcaption>
+</figure>
