@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Firefly renderer"
-date:   2025-06-24 20:00:13 +0100
+date:   2025-06-24 19:00:13 +0100
 categories: posts
 ---
 
@@ -46,6 +46,10 @@ Below are some screenshots and the feature list on how we achieved such.
   <source src="../../../../assets/firefly/skeletal-animation.mp4" type="video/mp4">
 </video>
 
+[![]()](../../../../assets/firefly/ui-demo.mp4)
+
 <video width="750" height="480" controls>
   <source src="../../../../assets/firefly/ui-demo.mp4" type="video/mp4">
 </video>
+
+[![]()](../../../../assets/firefly/ui-demo.mp4)
