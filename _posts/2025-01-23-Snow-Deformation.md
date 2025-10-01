@@ -217,6 +217,6 @@ Same for this resource, the weather can affect this terrain as well. If it rains
 The last thing that could be done to enhance the terrain even more, is apply parallax occlusion mapping. How I visualized to use POM to enhance the terrain, is not to use it for the deformation itself, but for something like foliage inside of the terrain.
 
 ## References:
-1.	Real-time Snow Deformation, Daniel Hanák, 2021: https://is.muni.cz/th/m2v6i/real-time_snow_deformation.pdf 
-2.	Optimizing GPU occupancy and resource usage with large thread groups, Sebastian Aaltonen, 2017: https://gpuopen.com/learn/optimizing-gpu-occupancy-resource-usage-large-thread-groups/ 
-3.	UDN normal blending: https://docs.unrealengine.com/udk/Three/MaterialBasics.html#Detail%20Normal%20Map
+1.	Real-time Snow Deformation, Daniel Hanák, 2021: [https://is.muni.cz/th/m2v6i/real-time_snow_deformation.pdf](https://is.muni.cz/th/m2v6i/real-time_snow_deformation.pdf)
+2.	Optimizing GPU occupancy and resource usage with large thread groups, Sebastian Aaltonen, 2017: [https://gpuopen.com/learn/optimizing-gpu-occupancy-resource-usage-large-thread-groups/](https://gpuopen.com/learn/optimizing-gpu-occupancy-resource-usage-large-thread-groups/)
+3.	UDN normal blending: [https://docs.unrealengine.com/udk/Three/MaterialBasics.html#Detail%20Normal%20Map](https://docs.unrealengine.com/udk/Three/MaterialBasics.html#Detail%20Normal%20Map)
