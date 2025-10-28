@@ -27,6 +27,7 @@ url: "https://PappaNiels.github.io" # the base hostname & protocol for your site
 twitter_username: PappaNiels
 github_username:  PappaNiels
 linkedin_username: niels-hp-jaspers
+cv: cv
 
 # Build settings
 theme: minima

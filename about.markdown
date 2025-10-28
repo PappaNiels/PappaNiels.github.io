@@ -17,3 +17,6 @@ Currently, I am still enrolled into the university, and I am in my third year ou
 <br>
 <br>
 If you have any questions, concerns, or want to reach out to me, feel free to reach out to me using either my e-mail address or my social media account listed below.
+<br>
+<br>
+My CV can be found [here](../assets/CV-Niels-Jaspers.pdf){:target="_blank"}.
