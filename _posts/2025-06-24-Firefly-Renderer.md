@@ -11,7 +11,7 @@ Below are some screenshots and the feature list on how we achieved such.
 ### Features
 
 **I worked on these features:**
-- Complete platform independed renderer
+- Complete platform independent renderer
 - Deferred rendering 
 - Skeletal animation
 - SSAO
