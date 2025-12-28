@@ -9,7 +9,7 @@
         - Ensure the "Add Ruby executables to your PATH" option is checked.
         - Once the installation is finished, you'll be prompted to install MSYS2 development toolchain. Go ahead and let it install as it's required for Jekyll and some Ruby gems.
 
-2. Navigate to your repository `evidence` directory and open the terminal/command prompt 
+2. Navigate to the repository and open the terminal/command prompt 
 3. Install Bundler and Jekyll
 ```bash
 gem install jekyll bundler
